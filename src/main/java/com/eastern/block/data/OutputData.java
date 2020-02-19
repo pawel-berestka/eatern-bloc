@@ -1,8 +1,8 @@
 package com.eastern.block.data;
 
 public class OutputData {
-    private Integer typesOfPizzas;
-    private Integer[] pizzasIndexes;
+    private Integer typesOfPizzas = 0;
+    private Integer[] pizzasIndexes = new Integer[0];
 
     public Integer getTypesOfPizzas() {
         return typesOfPizzas;
