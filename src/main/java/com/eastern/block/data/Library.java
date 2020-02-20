@@ -9,7 +9,7 @@ public class Library {
     private Integer numberOfBooks = 0;
     private Integer signupProcessTime = 0;
     private Integer shipmentSpeed = 0;
-    private Integer libraryScore = 0;
+    private Long libraryScore = 0L;
     private Boolean isScaned = false;
 
     public Boolean getScaned() {
@@ -20,11 +20,11 @@ public class Library {
         isScaned = scaned;
     }
 
-    public Integer getLibraryScore() {
+    public Long getLibraryScore() {
         return libraryScore;
     }
 
-    public void setLibraryScore(Integer libraryScore) {
+    public void setLibraryScore(Long libraryScore) {
         this.libraryScore = libraryScore;
     }
 

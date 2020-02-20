@@ -19,39 +19,54 @@ import java.util.Set;
 import static java.util.stream.Collectors.toList;
 
 public class Main {
-    //        private static final String DEFAULT_INPUT_FILE_PATH = "C:\\dev\\src\\asd\\pizza-algorithm\\src\\main\\resources\\a_example.in";
-//    private static final String DEFAULT_INPUT_FILE_PATH = "C:\\dev\\src\\asd\\pizza-algorithm\\src\\main\\resources\\b_small.in";
-//    private static final String DEFAULT_INPUT_FILE_PATH = "C:\\dev\\src\\asd\\pizza-algorithm\\src\\main\\resources\\c_medium.in";
-//    private static final String DEFAULT_INPUT_FILE_PATH = "C:\\dev\\src\\asd\\pizza-algorithm\\src\\main\\resources\\d_quite_big.in";
-//    private static final String DEFAULT_INPUT_FILE_PATH = "C:\\dev\\src\\asd\\pizza-algorithm\\src\\main\\resources\\e_also_big.in";
-    private static final String DEFAULT_INPUT_FILE_PATH = "C:\\dev\\hashcode\\eatern-bloc\\src\\main\\resources\\a_example.txt";
+    private static final String DEFAULT_INPUT_FILE_PATH = "C:\\dev\\hashcode\\eatern-bloc\\src\\main\\resources\\example.in";
+    private static final String DEFAULT_OUTPUT_FILE_PATH = "C:\\dev\\hashcode\\eatern-bloc\\src\\main\\resources\\example.out";
+
     private static final String DEFAULT_INPUT_FILE_PATH_A = "C:\\dev\\hashcode\\eatern-bloc\\src\\main\\resources\\a_example.txt";
     private static final String DEFAULT_INPUT_FILE_PATH_B = "C:\\dev\\hashcode\\eatern-bloc\\src\\main\\resources\\b_read_on.txt";
     private static final String DEFAULT_INPUT_FILE_PATH_C = "C:\\dev\\hashcode\\eatern-bloc\\src\\main\\resources\\c_incunabula.txt";
     private static final String DEFAULT_INPUT_FILE_PATH_D = "C:\\dev\\hashcode\\eatern-bloc\\src\\main\\resources\\d_tough_choices.txt";
     private static final String DEFAULT_INPUT_FILE_PATH_E = "C:\\dev\\hashcode\\eatern-bloc\\src\\main\\resources\\e_so_many_books.txt";
     private static final String DEFAULT_INPUT_FILE_PATH_F = "C:\\dev\\hashcode\\eatern-bloc\\src\\main\\resources\\f_libraries_of_the_world.txt";
-    private static final String DEFAULT_OUTPUT_FILE_PATH = "C:\\dev\\hashcode\\eatern-bloc\\src\\main\\resources\\a_example.out";
+    private static final String DEFAULT_OUTPUT_FILE_PATH_A = "C:\\dev\\hashcode\\eatern-bloc\\src\\main\\resources\\a_example.out";
+    private static final String DEFAULT_OUTPUT_FILE_PATH_B = "C:\\dev\\hashcode\\eatern-bloc\\src\\main\\resources\\b_read_on.out";
+    private static final String DEFAULT_OUTPUT_FILE_PATH_C = "C:\\dev\\hashcode\\eatern-bloc\\src\\main\\resources\\c_incunabula.out";
+    private static final String DEFAULT_OUTPUT_FILE_PATH_D = "C:\\dev\\hashcode\\eatern-bloc\\src\\main\\resources\\d_tough_choices.out";
+    private static final String DEFAULT_OUTPUT_FILE_PATH_E = "C:\\dev\\hashcode\\eatern-bloc\\src\\main\\resources\\e_so_many_books.out";
+    private static final String DEFAULT_OUTPUT_FILE_PATH_F = "C:\\dev\\hashcode\\eatern-bloc\\src\\main\\resources\\f_libraries_of_the_world.out";
 
     private static final List<String> allInputs
-            = Arrays.asList(DEFAULT_INPUT_FILE_PATH_A, DEFAULT_INPUT_FILE_PATH_B, DEFAULT_INPUT_FILE_PATH_C, DEFAULT_INPUT_FILE_PATH_D, DEFAULT_INPUT_FILE_PATH_E, DEFAULT_INPUT_FILE_PATH_F);
+            = Arrays.asList(DEFAULT_INPUT_FILE_PATH_A,
+            DEFAULT_INPUT_FILE_PATH_B,
+            DEFAULT_INPUT_FILE_PATH_C,
+            DEFAULT_INPUT_FILE_PATH_D,
+            DEFAULT_INPUT_FILE_PATH_E,
+            DEFAULT_INPUT_FILE_PATH_F);
+
+    private static final List<String> allOutputs
+            = Arrays.asList(DEFAULT_OUTPUT_FILE_PATH_A,
+            DEFAULT_OUTPUT_FILE_PATH_B,
+            DEFAULT_OUTPUT_FILE_PATH_C,
+            DEFAULT_OUTPUT_FILE_PATH_D,
+            DEFAULT_OUTPUT_FILE_PATH_E,
+            DEFAULT_OUTPUT_FILE_PATH_F);
+
 
     private static final InputDataReader inputDataReader = new InputDataReader();
     private static final OutputDataWriter outputDataWriter = new OutputDataWriter();
-
-    private static final Integer MODE = 0;
+    private static MODE mode = MODE.ALL_FILES;
+    ;
 
     public static void main(String[] args) throws FileNotFoundException {
-        if (MODE == 1) {
+        if (mode == MODE.SINGLE_FILE) {
             processFile(DEFAULT_INPUT_FILE_PATH, DEFAULT_OUTPUT_FILE_PATH);
-        } else {
+        } else if (mode == MODE.ALL_FILES) {
             int sum = 0;
-            for (String path : allInputs) {
-                sum += processFile(path, DEFAULT_OUTPUT_FILE_PATH);
+            for (int i = 0; i < allInputs.size(); ++i) {
+                sum += processFile(allInputs.get(i), allOutputs.get(i));
             }
             System.out.println("TOTAL SCORE FROM ALL FILES IS " + sum);
         }
-
     }
 
     private static Integer processFile(String inputFilePath, String outputFilePath) throws FileNotFoundException {
@@ -64,15 +79,11 @@ public class Main {
         outputDataWriter.writeData(outputFilePath, outputData);
 
         Integer totalScore = getTotalScore(outputData, inputData);
-        System.out.println("FINALOWY WYNIK TO: " + totalScore);
+        System.out.println("Score from file is " + totalScore);
 
         Instant endTime = Instant.now();
         System.out.println("Execution time: " + getElapsedTimeInMilis(startTime, endTime) + "ms.");
         return totalScore;
-    }
-
-    private static long getElapsedTimeInMilis(Instant startTime, Instant endTime) {
-        return Duration.between(startTime, endTime).toMillis();
     }
 
     public static Integer getTotalScore(OutputData outputData, InputData inputData) {
@@ -83,7 +94,7 @@ public class Main {
             totalSignupTime += findLibrary(inputData.getLibraries(), outputLibrary.getLibraryIndex()).getSignupProcessTime();
             for (Integer bookIndex : outputLibrary.getBookIndexesToSend()) {
                 if (processedBooksIndexes.contains(bookIndex)) {
-                    System.out.println("POTWORKA INDEKSU " + bookIndex);
+                    System.out.println("Doubled index " + bookIndex);
                 } else {
                     processedBooksIndexes.add(bookIndex);
                     score += inputData.getBooksScores().get(bookIndex);
@@ -92,9 +103,13 @@ public class Main {
         }
 
         if (totalSignupTime > inputData.getDaysForScannig()) {
-            System.out.println("HEHEHE PRZEKROCZYLISMY CZAS. POWINNO BYC " + inputData.getDaysForScannig() + " A JEST " + totalSignupTime);
+            System.out.println("Should be not more than, " + inputData.getDaysForScannig() + " but is " + totalSignupTime);
         }
         return score;
+    }
+
+    private static long getElapsedTimeInMilis(Instant startTime, Instant endTime) {
+        return Duration.between(startTime, endTime).toMillis();
     }
 
     private static Library findLibrary(List<Library> libraryList, Integer libraryIndex) {
@@ -103,9 +118,14 @@ public class Main {
                 .collect(toList());
 
         if (myLibrary.size() != 1) {
-            System.out.println("COS SIE SPIEPRZYLO, INDEKSOW " + libraryIndex + " JEST " + myLibrary.size());
+            System.out.println("Something went wrong with library indexes...");
         }
 
         return myLibrary.get(0);
+    }
+
+    private enum MODE {
+        SINGLE_FILE,
+        ALL_FILES
     }
 }

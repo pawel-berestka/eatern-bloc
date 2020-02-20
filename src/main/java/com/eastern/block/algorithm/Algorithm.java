@@ -6,12 +6,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class Algorithm {
-//    private LibraryScoringGetter libraryScoringGetter;
-//    private Integer daysLeftOnStart;
-
     public OutputData calculate(InputData inputData) {
         List<Library> sortedLibrariesPerSingup = getSortedLibrariesPerSignup(inputData.getLibraries());
-
         Integer wholeTime = inputData.getDaysForScannig();
         Integer timeLeft = wholeTime;
         Set<Book> chosenBooks = new HashSet<>();
@@ -20,18 +16,11 @@ public class Algorithm {
         for (int i = 0; i < sortedLibrariesPerSingup.size(); ++i) {
             Library bestLibrary = sortedLibrariesPerSingup.get(i);
             if (timeLeft > bestLibrary.getSignupProcessTime()) {
-//                System.out.println(
-//                        String.format("Biblioteka o indeksie %s z czasem singup %s zmiesci sie, bo zostalo czasu %s.",
-//                                bestLibrary.getLibraryIndex().toString(), bestLibrary.getSignupProcessTime().toString(), timeLeft.toString()));
 
                 List<Book> booksFromBestLibrary = getBooksToTake(bestLibrary.getBooks(),
                         chosenBooks,
                         getNumberOfBooksToTakeFromLibrary(timeLeft, bestLibrary));
                 if (!booksFromBestLibrary.isEmpty()) {
-//                    System.out.println(String.format("Z biblioteki o indeksie %s wzielismy %s ksiazki %s", bestLibrary.getLibraryIndex(),
-//                            booksFromBestLibrary.size(),
-//                            booksFromBestLibrary));
-
                     LibraryAndItsBooks transformedBestLibrary = new LibraryAndItsBooks();
                     transformedBestLibrary.library = bestLibrary;
                     transformedBestLibrary.books = booksFromBestLibrary;
@@ -40,16 +29,12 @@ public class Algorithm {
                     chosenBooks.addAll(booksFromBestLibrary);
                     timeLeft -= bestLibrary.getSignupProcessTime();
                 } else {
-//                    System.out.println("Heheszki, nic nie wyciagnales z biblioteki o indeksie " + bestLibrary.getLibraryIndex());
+                    continue;
                 }
             } else {
-//                System.out.println(
-//                        String.format("Biblioteka o indeksie %s z czasem singup %s sie nie zmiesci, bo zostalo czasu %s.",
-//                                bestLibrary.getLibraryIndex().toString(), bestLibrary.getSignupProcessTime().toString(), timeLeft.toString()));
                 continue;
             }
         }
-
 
         OutputData outputData = new OutputData();
         outputData.setNumberOfLibraries(result.size());
@@ -69,10 +54,6 @@ public class Algorithm {
         outputData.setOutputLibraries(outputLibraries);
         return outputData;
     }
-
-//    public Algorithm(LibraryScoringGetter libraryScoringGetter) {
-//        this.libraryScoringGetter = libraryScoringGetter;
-//    }
 
     private Integer getNumberOfBooksToTakeFromLibrary(Integer timeLeft, Library library) {
         Integer books = (timeLeft - library.getSignupProcessTime()) * library.getShipmentSpeed();
@@ -95,7 +76,7 @@ public class Algorithm {
     }
 
     private List<Library> getSortedLibrariesPerSignup(List<Library> libraries) {
-        Collections.sort(libraries, new LibraryComparator());
+        Collections.sort(libraries, new AscendingSignupProcessTimeLibraryComparator());
         return libraries;
     }
 
@@ -104,7 +85,7 @@ public class Algorithm {
         public List<Book> books;
     }
 
-    public class LibraryComparator implements Comparator<Library> {
+    public class AscendingSignupProcessTimeLibraryComparator implements Comparator<Library> {
         @Override
         public int compare(Library o1, Library o2) {
             if (o1.getSignupProcessTime() < (o2.getSignupProcessTime()))
