@@ -53,6 +53,7 @@ public class InputDataReader {
                 libraryBooks.add(books.get(bookIndex));
             }
 
+            Collections.sort(libraryBooks, new BookComparator());
             library.setBooks(libraryBooks);
             libraries.add(library);
 //            System.out.println(library);
@@ -60,5 +61,12 @@ public class InputDataReader {
 
         inputData.setLibraries(libraries);
         return inputData;
+    }
+
+    public class BookComparator implements Comparator<Book> {
+        @Override
+        public int compare(Book o1, Book o2) {
+            return o1.getScore().compareTo(o2.getScore());
+        }
     }
 }

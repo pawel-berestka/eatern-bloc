@@ -9,6 +9,25 @@ public class Library {
     private Integer numberOfBooks = 0;
     private Integer signupProcessTime = 0;
     private Integer shipmentSpeed = 0;
+    private Integer libraryScore = 0;
+    private Boolean isScaned = false;
+
+    public Boolean getScaned() {
+        return isScaned;
+    }
+
+    public void setScaned(Boolean scaned) {
+        isScaned = scaned;
+    }
+
+    public Integer getLibraryScore() {
+        return libraryScore;
+    }
+
+    public void setLibraryScore(Integer libraryScore) {
+        this.libraryScore = libraryScore;
+    }
+
     private List<Book> books = new ArrayList<>();
 
     public Integer getLibraryIndex() {

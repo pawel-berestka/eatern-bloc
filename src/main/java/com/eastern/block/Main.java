@@ -1,6 +1,8 @@
 package com.eastern.block;
 
+import com.eastern.block.algorithm.Algorithm;
 import com.eastern.block.data.InputData;
+import com.eastern.block.data.OutputData;
 import com.eastern.block.file.InputDataReader;
 import com.eastern.block.file.OutputDataWriter;
 
@@ -14,7 +16,7 @@ public class Main {
 //    private static final String DEFAULT_INPUT_FILE_PATH = "C:\\dev\\src\\asd\\pizza-algorithm\\src\\main\\resources\\c_medium.in";
 //    private static final String DEFAULT_INPUT_FILE_PATH = "C:\\dev\\src\\asd\\pizza-algorithm\\src\\main\\resources\\d_quite_big.in";
 //    private static final String DEFAULT_INPUT_FILE_PATH = "C:\\dev\\src\\asd\\pizza-algorithm\\src\\main\\resources\\e_also_big.in";
-    private static final String DEFAULT_INPUT_FILE_PATH = "C:\\dev\\hashcode\\eatern-bloc\\src\\main\\resources\\c_incunabula.txt";
+    private static final String DEFAULT_INPUT_FILE_PATH = "C:\\dev\\hashcode\\eatern-bloc\\src\\main\\resources\\example.in";
     private static final String DEFAULT_OUTPUT_FILE_PATH = "C:\\dev\\hashcode\\eatern-bloc\\src\\main\\resources\\result.out";
 
     private static final InputDataReader inputDataReader = new InputDataReader();
@@ -38,8 +40,8 @@ public class Main {
         InputData inputData = inputDataReader.readData(inputFilePath);
         System.out.println(inputData);
 
-//        OutputData outputData = new Algorithm().calculate(inputData);
-//        outputDataWriter.writeData(outputFilePath, outputData);
+        OutputData outputData = new Algorithm().calculate(inputData);
+        outputDataWriter.writeData(outputFilePath, outputData);
 
         Instant endTime = Instant.now();
         System.out.println("Execution time: " + getElapsedTimeInMilis(startTime, endTime) + "ms.");
