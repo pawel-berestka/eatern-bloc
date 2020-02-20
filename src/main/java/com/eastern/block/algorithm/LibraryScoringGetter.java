@@ -17,8 +17,4 @@ public class LibraryScoringGetter {
 
         return score;
     }
-
-//    public Integer getScore(OutputLibrary outputLibrary){
-//        return
-//    }
 }
