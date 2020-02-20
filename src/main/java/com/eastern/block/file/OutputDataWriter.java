@@ -2,13 +2,9 @@ package com.eastern.block.file;
 
 import com.eastern.block.data.OutputData;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 public class OutputDataWriter {
     public void writeData(String pathToOutputFile, OutputData outputData) {
+        /*
         BufferedWriter bw = null;
         try {
             bw = new BufferedWriter(new FileWriter(pathToOutputFile));
@@ -26,5 +22,7 @@ public class OutputDataWriter {
                 }
             }
         }
+
+         */
     }
 }

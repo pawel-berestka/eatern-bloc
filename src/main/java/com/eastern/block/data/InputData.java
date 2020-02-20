@@ -1,38 +1,63 @@
 package com.eastern.block.data;
 
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.List;
+import java.util.Map;
 
 public class InputData {
-    private Integer maxNumberOfSlices;
-    private Integer differentTypes;
-    private Integer[] pizzas;
+    private Integer numberOfBooks;
+    private Integer numberOfLibraries;
+    private Integer daysForScannig;
+    private Map<Integer, Integer> booksScores;
+    private List<Library> libraries;
 
-    public Integer getMaxNumberOfSlices() {
-        return maxNumberOfSlices;
+    public Integer getNumberOfBooks() {
+        return numberOfBooks;
     }
 
-    public void setMaxNumberOfSlices(Integer maxNumberOfSlices) {
-        this.maxNumberOfSlices = maxNumberOfSlices;
+    public void setNumberOfBooks(Integer numberOfBooks) {
+        this.numberOfBooks = numberOfBooks;
     }
 
-    public Integer getDifferentTypes() {
-        return differentTypes;
+    public Integer getNumberOfLibraries() {
+        return numberOfLibraries;
     }
 
-    public void setDifferentTypes(Integer differentTypes) {
-        this.differentTypes = differentTypes;
+    public void setNumberOfLibraries(Integer numberOfLibraries) {
+        this.numberOfLibraries = numberOfLibraries;
     }
 
-    public Integer[] getPizzas() {
-        return pizzas;
+    public Integer getDaysForScannig() {
+        return daysForScannig;
     }
 
-    public void setPizzas(Integer[] pizzas) {
-        this.pizzas = pizzas;
+    public void setDaysForScannig(Integer daysForScannig) {
+        this.daysForScannig = daysForScannig;
     }
 
+    public Map<Integer, Integer> getBooksScores() {
+        return booksScores;
+    }
+
+    public void setBooksScores(Map<Integer, Integer> booksScores) {
+        this.booksScores = booksScores;
+    }
+
+    public List<Library> getLibraries() {
+        return libraries;
+    }
+
+    public void setLibraries(List<Library> libraries) {
+        this.libraries = libraries;
+    }
+
+    @Override
     public String toString() {
-        return String.format("Slices: %s, DifferentTypes: %s\n%s", maxNumberOfSlices, differentTypes, Stream.of(pizzas).map(Object::toString).collect(Collectors.joining(",")));
+        return "InputData{" +
+                "numberOfBooks=" + numberOfBooks +
+                ", numberOfLibraries=" + numberOfLibraries +
+                ", daysForScannig=" + daysForScannig +
+                ", booksScores=" + booksScores +
+                ", libraries=" + libraries +
+                '}';
     }
 }

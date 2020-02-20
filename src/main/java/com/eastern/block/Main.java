@@ -16,8 +16,8 @@ public class Main {
 //    private static final String DEFAULT_INPUT_FILE_PATH = "C:\\dev\\src\\asd\\pizza-algorithm\\src\\main\\resources\\c_medium.in";
 //    private static final String DEFAULT_INPUT_FILE_PATH = "C:\\dev\\src\\asd\\pizza-algorithm\\src\\main\\resources\\d_quite_big.in";
 //    private static final String DEFAULT_INPUT_FILE_PATH = "C:\\dev\\src\\asd\\pizza-algorithm\\src\\main\\resources\\e_also_big.in";
-    private static final String DEFAULT_INPUT_FILE_PATH = "C:\\dev\\src\\asd\\pizza-algorithm\\src\\main\\resources\\f_biggest.in";
-    private static final String DEFAULT_OUTPUT_FILE_PATH = "C:\\dev\\src\\asd\\pizza-algorithm\\src\\main\\resources\\result.out";
+    private static final String DEFAULT_INPUT_FILE_PATH = "C:\\dev\\hashcode\\eatern-bloc\\src\\main\\resources\\example.in";
+    private static final String DEFAULT_OUTPUT_FILE_PATH = "C:\\dev\\hashcode\\eatern-bloc\\src\\main\\resources\\result.out";
 
     private static final InputDataReader inputDataReader = new InputDataReader();
     private static final OutputDataWriter outputDataWriter = new OutputDataWriter();
@@ -41,8 +41,7 @@ public class Main {
         System.out.println(inputData);
 
         OutputData outputData = new Algorithm().calculate(inputData);
-//        System.out.println("Sum is: " + sum(inputData.getPizzas(), outputData.getPizzasIndexes()));
-        outputDataWriter.writeData(outputFilePath, outputData);
+//        outputDataWriter.writeData(outputFilePath, outputData);
 
         Instant endTime = Instant.now();
         System.out.println("Execution time: " + getElapsedTimeInMilis(startTime, endTime) + "ms.");
@@ -50,13 +49,5 @@ public class Main {
 
     private static long getElapsedTimeInMilis(Instant startTime, Instant endTime) {
         return Duration.between(startTime, endTime).toMillis();
-    }
-
-    private static Integer sum(Integer[] pizzas, Integer[] indexes) {
-        int sum = 0;
-        for (int i = 0; i < indexes.length; ++i) {
-            sum += pizzas[indexes[i]];
-        }
-        return sum;
     }
 }
