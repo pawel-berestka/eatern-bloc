@@ -24,20 +24,20 @@ public class Algorithm {
                 if ((target - actualScore) - pizzas[k] > 0) {
                     actualScore += pizzas[k];
                     usedPizzas.add(k);
-                } else if (k == 0) {
-                    if (actualScore > bestScore) {
-                        System.out.println(String.format("Replacing oldScore: %s with newScore: %s\nOld: %s\nNew: %s", bestScore, actualScore, bestPizzasSet, usedPizzas));
-                        bestScore = actualScore;
-                        bestPizzasSet = new ArrayList<>(usedPizzas);
-                    }
                 }
+            }
+
+            if (actualScore > bestScore) {
+//                System.out.println(String.format("Replacing oldScore: %s with newScore: %s\nOld: %s\nNew: %s", bestScore, actualScore, bestPizzasSet, usedPizzas));
+                bestScore = actualScore;
+                bestPizzasSet = new ArrayList<>(usedPizzas);
             }
             actualScore = 0;
             usedPizzas = new ArrayList<>(pizzas.length);
         }
 
         Integer[] result = new Integer[bestPizzasSet.size()];
-        System.out.println(String.format("Best result: %s", bestScore));
+//        System.out.println(String.format("Best result: %s", bestScore));
         return new OutputData(bestPizzasSet.size(), bestPizzasSet.toArray(result));
     }
 }

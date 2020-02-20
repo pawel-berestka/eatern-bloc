@@ -11,7 +11,7 @@ import java.time.Duration;
 import java.time.Instant;
 
 public class Main {
-    //    private static final String DEFAULT_INPUT_FILE_PATH = "C:\\dev\\src\\asd\\pizza-algorithm\\src\\main\\resources\\a_example.in";
+    //        private static final String DEFAULT_INPUT_FILE_PATH = "C:\\dev\\src\\asd\\pizza-algorithm\\src\\main\\resources\\a_example.in";
 //    private static final String DEFAULT_INPUT_FILE_PATH = "C:\\dev\\src\\asd\\pizza-algorithm\\src\\main\\resources\\b_small.in";
 //    private static final String DEFAULT_INPUT_FILE_PATH = "C:\\dev\\src\\asd\\pizza-algorithm\\src\\main\\resources\\c_medium.in";
 //    private static final String DEFAULT_INPUT_FILE_PATH = "C:\\dev\\src\\asd\\pizza-algorithm\\src\\main\\resources\\d_quite_big.in";
@@ -41,7 +41,7 @@ public class Main {
         System.out.println(inputData);
 
         OutputData outputData = new Algorithm().calculate(inputData);
-        System.out.println("Sum is: " + sum(inputData.getPizzas(), outputData.getPizzasIndexes()));
+//        System.out.println("Sum is: " + sum(inputData.getPizzas(), outputData.getPizzasIndexes()));
         outputDataWriter.writeData(outputFilePath, outputData);
 
         Instant endTime = Instant.now();
