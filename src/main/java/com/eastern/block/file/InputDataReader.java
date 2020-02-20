@@ -30,7 +30,6 @@ public class InputDataReader {
             Book book = new Book(i, Integer.valueOf(secondLineParsed[i]));
             books.put(i, book);
         }
-//        System.out.println(books);
         inputData.setBooksScores(booksScores);
 
         List<Library> libraries = new ArrayList<>();
@@ -56,7 +55,6 @@ public class InputDataReader {
             Collections.sort(libraryBooks, new BookComparator());
             library.setBooks(libraryBooks);
             libraries.add(library);
-//            System.out.println(library);
         }
 
         inputData.setLibraries(libraries);

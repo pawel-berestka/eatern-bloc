@@ -6,20 +6,27 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class Algorithm {
+    private BestLibraryGetter bestLibraryGetter;
+    private LibraryBooksGetter libraryBooksGetter;
+    private NumberOfBooksGetter numberOfBooksGetter;
+
+    public Algorithm(BestLibraryGetter bestLibraryGetter, LibraryBooksGetter libraryBooksGetter, NumberOfBooksGetter numberOfBooksGetter) {
+        this.bestLibraryGetter = bestLibraryGetter;
+        this.libraryBooksGetter = libraryBooksGetter;
+        this.numberOfBooksGetter = numberOfBooksGetter;
+    }
+
     public OutputData calculate(InputData inputData) {
-        List<Library> sortedLibrariesPerSingup = getSortedLibrariesPerSignup(inputData.getLibraries());
+        List<Library> libraries = new LinkedList<>(inputData.getLibraries());
         Integer wholeTime = inputData.getDaysForScannig();
         Integer timeLeft = wholeTime;
         Set<Book> chosenBooks = new HashSet<>();
 
         List<LibraryAndItsBooks> result = new ArrayList<>();
-        for (int i = 0; i < sortedLibrariesPerSingup.size(); ++i) {
-            Library bestLibrary = sortedLibrariesPerSingup.get(i);
+        while (!libraries.isEmpty()) {
+            Library bestLibrary = bestLibraryGetter.getLibrary(libraries);
             if (timeLeft > bestLibrary.getSignupProcessTime()) {
-
-                List<Book> booksFromBestLibrary = getBooksToTake(bestLibrary.getBooks(),
-                        chosenBooks,
-                        getNumberOfBooksToTakeFromLibrary(timeLeft, bestLibrary));
+                List<Book> booksFromBestLibrary = libraryBooksGetter.getBooksToTake(bestLibrary.getBooks(), chosenBooks, numberOfBooksGetter.getNumberOfBooksToTake(timeLeft, bestLibrary.getSignupProcessTime(), bestLibrary.getShipmentSpeed()));
                 if (!booksFromBestLibrary.isEmpty()) {
                     LibraryAndItsBooks transformedBestLibrary = new LibraryAndItsBooks();
                     transformedBestLibrary.library = bestLibrary;
@@ -28,12 +35,14 @@ public class Algorithm {
 
                     chosenBooks.addAll(booksFromBestLibrary);
                     timeLeft -= bestLibrary.getSignupProcessTime();
-                } else {
-                    continue;
                 }
-            } else {
-                continue;
             }
+
+//            for(int i=0; i<libraries.size(); ++i){
+//                if(timeLeft < libraries.get(i).getSi;)
+//            }
+
+            libraries.remove(bestLibrary);
         }
 
         OutputData outputData = new OutputData();
@@ -55,45 +64,9 @@ public class Algorithm {
         return outputData;
     }
 
-    private Integer getNumberOfBooksToTakeFromLibrary(Integer timeLeft, Library library) {
-        Integer books = (timeLeft - library.getSignupProcessTime()) * library.getShipmentSpeed();
-        return books < 0 ? 0 : books;
-    }
-
-    private List<Book> getBooksToTake(List<Book> libraryBooks, Set<Book> chosenBooks, Integer numberToBooksToTake) {
-        List<Book> booksToTake = new ArrayList<>();
-        for (int i = libraryBooks.size() - 1; i >= 0; --i) {
-            if (booksToTake.size() == numberToBooksToTake) {
-                return booksToTake;
-            }
-
-            if (!chosenBooks.contains(libraryBooks.get(i))) {
-                booksToTake.add(libraryBooks.get(i));
-            }
-        }
-
-        return booksToTake;
-    }
-
-    private List<Library> getSortedLibrariesPerSignup(List<Library> libraries) {
-        Collections.sort(libraries, new AscendingSignupProcessTimeLibraryComparator());
-        return libraries;
-    }
-
     public static class LibraryAndItsBooks {
         public Library library;
         public List<Book> books;
     }
 
-    public class AscendingSignupProcessTimeLibraryComparator implements Comparator<Library> {
-        @Override
-        public int compare(Library o1, Library o2) {
-            if (o1.getSignupProcessTime() < (o2.getSignupProcessTime()))
-                return -1;
-            else if (o1.getSignupProcessTime() > o2.getSignupProcessTime())
-                return 1;
-            else
-                return 0;
-        }
-    }
 }

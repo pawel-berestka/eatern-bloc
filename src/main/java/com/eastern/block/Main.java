@@ -1,6 +1,9 @@
 package com.eastern.block;
 
 import com.eastern.block.algorithm.Algorithm;
+import com.eastern.block.algorithm.BestLibraryGetter;
+import com.eastern.block.algorithm.LibraryBooksGetter;
+import com.eastern.block.algorithm.NumberOfBooksGetter;
 import com.eastern.block.data.InputData;
 import com.eastern.block.data.Library;
 import com.eastern.block.data.OutputData;
@@ -19,6 +22,11 @@ import java.util.Set;
 import static java.util.stream.Collectors.toList;
 
 public class Main {
+    private static final LibraryBooksGetter libraryBooksGetter = new LibraryBooksGetter();
+    private static final BestLibraryGetter bestLibraryGetter = new BestLibraryGetter();
+    private static final NumberOfBooksGetter numberOfBooksGetter = new NumberOfBooksGetter();
+    private static final Algorithm algorithm = new Algorithm(bestLibraryGetter, libraryBooksGetter, numberOfBooksGetter);
+
     private static final String DEFAULT_INPUT_FILE_PATH = "C:\\dev\\hashcode\\eatern-bloc\\src\\main\\resources\\example.in";
     private static final String DEFAULT_OUTPUT_FILE_PATH = "C:\\dev\\hashcode\\eatern-bloc\\src\\main\\resources\\example.out";
 
@@ -55,7 +63,6 @@ public class Main {
     private static final InputDataReader inputDataReader = new InputDataReader();
     private static final OutputDataWriter outputDataWriter = new OutputDataWriter();
     private static MODE mode = MODE.ALL_FILES;
-    ;
 
     public static void main(String[] args) throws FileNotFoundException {
         if (mode == MODE.SINGLE_FILE) {
@@ -75,9 +82,10 @@ public class Main {
         InputData inputData = inputDataReader.readData(inputFilePath);
         System.out.println(inputData);
 
-        OutputData outputData = new Algorithm().calculate(inputData);
+        OutputData outputData = algorithm.calculate(inputData);
         outputDataWriter.writeData(outputFilePath, outputData);
 
+        System.out.println(outputData);
         Integer totalScore = getTotalScore(outputData, inputData);
         System.out.println("Score from file is " + totalScore);
 
