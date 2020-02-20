@@ -1,8 +1,6 @@
 package com.eastern.block;
 
-import com.eastern.block.algorithm.Algorithm;
 import com.eastern.block.data.InputData;
-import com.eastern.block.data.OutputData;
 import com.eastern.block.file.InputDataReader;
 import com.eastern.block.file.OutputDataWriter;
 
@@ -40,7 +38,7 @@ public class Main {
         InputData inputData = inputDataReader.readData(inputFilePath);
         System.out.println(inputData);
 
-        OutputData outputData = new Algorithm().calculate(inputData);
+//        OutputData outputData = new Algorithm().calculate(inputData);
 //        outputDataWriter.writeData(outputFilePath, outputData);
 
         Instant endTime = Instant.now();

@@ -42,6 +42,7 @@ public class InputDataReader {
             String[] secondLibraryLineParsed = secondLibraryLine.split(" ");
 
             Library library = new Library();
+            library.setLibraryIndex(i);
             library.setNumberOfBooks(Integer.valueOf(firstLibraryLineParsed[0]));
             library.setSignupProcessTime(Integer.valueOf(firstLibraryLineParsed[1]));
             library.setShipmentSpeed(Integer.valueOf(firstLibraryLineParsed[2]));
