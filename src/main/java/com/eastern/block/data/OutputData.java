@@ -1,22 +1,18 @@
 package com.eastern.block.data;
 
 public class OutputData {
-    private Integer typesOfPizzas = 0;
-    private Integer[] pizzasIndexes = new Integer[0];
+    private final Integer typesOfPizzas;
+    private final Integer[] pizzasIndexes;
+
+    public OutputData(Integer typesOfPizzas, Integer[] pizzasIndexes) {
+        this.typesOfPizzas = typesOfPizzas;
+        this.pizzasIndexes = pizzasIndexes;
+    }
 
     public Integer getTypesOfPizzas() {
         return typesOfPizzas;
     }
-
-    public void setTypesOfPizzas(Integer typesOfPizzas) {
-        this.typesOfPizzas = typesOfPizzas;
-    }
-
     public Integer[] getPizzasIndexes() {
         return pizzasIndexes;
-    }
-
-    public void setPizzasIndexes(Integer[] pizzasIndexes) {
-        this.pizzasIndexes = pizzasIndexes;
     }
 }
