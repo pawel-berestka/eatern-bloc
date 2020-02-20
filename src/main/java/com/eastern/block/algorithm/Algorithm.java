@@ -20,17 +20,17 @@ public class Algorithm {
         for (int i = 0; i < sortedLibrariesPerSingup.size(); ++i) {
             Library bestLibrary = sortedLibrariesPerSingup.get(i);
             if (timeLeft > bestLibrary.getSignupProcessTime()) {
-                System.out.println(
-                        String.format("Biblioteka o indeksie %s z czasem singup %s zmiesci sie, bo zostalo czasu %s.",
-                                bestLibrary.getLibraryIndex().toString(), bestLibrary.getSignupProcessTime().toString(), timeLeft.toString()));
+//                System.out.println(
+//                        String.format("Biblioteka o indeksie %s z czasem singup %s zmiesci sie, bo zostalo czasu %s.",
+//                                bestLibrary.getLibraryIndex().toString(), bestLibrary.getSignupProcessTime().toString(), timeLeft.toString()));
 
                 List<Book> booksFromBestLibrary = getBooksToTake(bestLibrary.getBooks(),
                         chosenBooks,
                         getNumberOfBooksToTakeFromLibrary(timeLeft, bestLibrary));
                 if (!booksFromBestLibrary.isEmpty()) {
-                    System.out.println(String.format("Z biblioteki o indeksie %s wzielismy %s ksiazki %s", bestLibrary.getLibraryIndex(),
-                            booksFromBestLibrary.size(),
-                            booksFromBestLibrary));
+//                    System.out.println(String.format("Z biblioteki o indeksie %s wzielismy %s ksiazki %s", bestLibrary.getLibraryIndex(),
+//                            booksFromBestLibrary.size(),
+//                            booksFromBestLibrary));
 
                     LibraryAndItsBooks transformedBestLibrary = new LibraryAndItsBooks();
                     transformedBestLibrary.library = bestLibrary;
@@ -40,12 +40,12 @@ public class Algorithm {
                     chosenBooks.addAll(booksFromBestLibrary);
                     timeLeft -= bestLibrary.getSignupProcessTime();
                 } else {
-                    System.out.println("Heheszki, nic nie wyciagnales z biblioteki o indeksie " + bestLibrary.getLibraryIndex());
+//                    System.out.println("Heheszki, nic nie wyciagnales z biblioteki o indeksie " + bestLibrary.getLibraryIndex());
                 }
             } else {
-                System.out.println(
-                        String.format("Biblioteka o indeksie %s z czasem singup %s sie nie zmiesci, bo zostalo czasu %s.",
-                                bestLibrary.getLibraryIndex().toString(), bestLibrary.getSignupProcessTime().toString(), timeLeft.toString()));
+//                System.out.println(
+//                        String.format("Biblioteka o indeksie %s z czasem singup %s sie nie zmiesci, bo zostalo czasu %s.",
+//                                bestLibrary.getLibraryIndex().toString(), bestLibrary.getSignupProcessTime().toString(), timeLeft.toString()));
                 continue;
             }
         }

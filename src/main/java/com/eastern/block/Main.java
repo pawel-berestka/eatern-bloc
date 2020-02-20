@@ -11,6 +11,7 @@ import com.eastern.block.file.OutputDataWriter;
 import java.io.FileNotFoundException;
 import java.time.Duration;
 import java.time.Instant;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -23,28 +24,38 @@ public class Main {
 //    private static final String DEFAULT_INPUT_FILE_PATH = "C:\\dev\\src\\asd\\pizza-algorithm\\src\\main\\resources\\c_medium.in";
 //    private static final String DEFAULT_INPUT_FILE_PATH = "C:\\dev\\src\\asd\\pizza-algorithm\\src\\main\\resources\\d_quite_big.in";
 //    private static final String DEFAULT_INPUT_FILE_PATH = "C:\\dev\\src\\asd\\pizza-algorithm\\src\\main\\resources\\e_also_big.in";
-//    private static final String DEFAULT_INPUT_FILE_PATH = "C:\\dev\\hashcode\\eatern-bloc\\src\\main\\resources\\a_example.txt";
-//    private static final String DEFAULT_INPUT_FILE_PATH = "C:\\dev\\hashcode\\eatern-bloc\\src\\main\\resources\\d_tough_choices.txt";
-    private static final String DEFAULT_INPUT_FILE_PATH = "C:\\dev\\hashcode\\eatern-bloc\\src\\main\\resources\\f_libraries_of_the_world.txt";
-    private static final String DEFAULT_OUTPUT_FILE_PATH = "C:\\dev\\hashcode\\eatern-bloc\\src\\main\\resources\\result.out";
+    private static final String DEFAULT_INPUT_FILE_PATH = "C:\\dev\\hashcode\\eatern-bloc\\src\\main\\resources\\a_example.txt";
+    private static final String DEFAULT_INPUT_FILE_PATH_A = "C:\\dev\\hashcode\\eatern-bloc\\src\\main\\resources\\a_example.txt";
+    private static final String DEFAULT_INPUT_FILE_PATH_B = "C:\\dev\\hashcode\\eatern-bloc\\src\\main\\resources\\b_read_on.txt";
+    private static final String DEFAULT_INPUT_FILE_PATH_C = "C:\\dev\\hashcode\\eatern-bloc\\src\\main\\resources\\c_incunabula.txt";
+    private static final String DEFAULT_INPUT_FILE_PATH_D = "C:\\dev\\hashcode\\eatern-bloc\\src\\main\\resources\\d_tough_choices.txt";
+    private static final String DEFAULT_INPUT_FILE_PATH_E = "C:\\dev\\hashcode\\eatern-bloc\\src\\main\\resources\\e_so_many_books.txt";
+    private static final String DEFAULT_INPUT_FILE_PATH_F = "C:\\dev\\hashcode\\eatern-bloc\\src\\main\\resources\\f_libraries_of_the_world.txt";
+    private static final String DEFAULT_OUTPUT_FILE_PATH = "C:\\dev\\hashcode\\eatern-bloc\\src\\main\\resources\\a_example.out";
+
+    private static final List<String> allInputs
+            = Arrays.asList(DEFAULT_INPUT_FILE_PATH_A, DEFAULT_INPUT_FILE_PATH_B, DEFAULT_INPUT_FILE_PATH_C, DEFAULT_INPUT_FILE_PATH_D, DEFAULT_INPUT_FILE_PATH_E, DEFAULT_INPUT_FILE_PATH_F);
 
     private static final InputDataReader inputDataReader = new InputDataReader();
     private static final OutputDataWriter outputDataWriter = new OutputDataWriter();
 
+    private static final Integer MODE = 0;
 
     public static void main(String[] args) throws FileNotFoundException {
-        Instant startTime = Instant.now();
-
-        String inputFilePath;
-        String outputFilePath;
-
-        if(args.length == 2){
-            inputFilePath=args[0];
-            outputFilePath=args[1];
+        if (MODE == 1) {
+            processFile(DEFAULT_INPUT_FILE_PATH, DEFAULT_OUTPUT_FILE_PATH);
         } else {
-            inputFilePath = DEFAULT_INPUT_FILE_PATH;
-            outputFilePath = DEFAULT_OUTPUT_FILE_PATH;
+            int sum = 0;
+            for (String path : allInputs) {
+                sum += processFile(path, DEFAULT_OUTPUT_FILE_PATH);
+            }
+            System.out.println("TOTAL SCORE FROM ALL FILES IS " + sum);
         }
+
+    }
+
+    private static Integer processFile(String inputFilePath, String outputFilePath) throws FileNotFoundException {
+        Instant startTime = Instant.now();
 
         InputData inputData = inputDataReader.readData(inputFilePath);
         System.out.println(inputData);
@@ -52,9 +63,12 @@ public class Main {
         OutputData outputData = new Algorithm().calculate(inputData);
         outputDataWriter.writeData(outputFilePath, outputData);
 
-        System.out.println("FINALOWY WYNIK TO: " + getTotalScore(outputData, inputData));
+        Integer totalScore = getTotalScore(outputData, inputData);
+        System.out.println("FINALOWY WYNIK TO: " + totalScore);
+
         Instant endTime = Instant.now();
         System.out.println("Execution time: " + getElapsedTimeInMilis(startTime, endTime) + "ms.");
+        return totalScore;
     }
 
     private static long getElapsedTimeInMilis(Instant startTime, Instant endTime) {
