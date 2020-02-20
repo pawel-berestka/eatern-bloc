@@ -1,14 +1,16 @@
 package com.eastern.block.data;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class InputData {
-    private Integer numberOfBooks;
-    private Integer numberOfLibraries;
-    private Integer daysForScannig;
-    private Map<Integer, Integer> booksScores;
-    private List<Library> libraries;
+    private Integer numberOfBooks = 0;
+    private Integer numberOfLibraries = 0;
+    private Integer daysForScannig = 0;
+    private Map<Integer, Integer> booksScores = new HashMap<>();
+    private List<Library> libraries = new ArrayList<>();
 
     public Integer getNumberOfBooks() {
         return numberOfBooks;

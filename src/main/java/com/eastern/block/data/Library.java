@@ -1,12 +1,22 @@
 package com.eastern.block.data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Library {
-    private Integer numberOfBooks;
-    private Integer signupProcessTime;
-    private Integer shipmentSpeed;
-    private List<Book> books;
+    private Integer libraryIndex = 0;
+    private Integer numberOfBooks = 0;
+    private Integer signupProcessTime = 0;
+    private Integer shipmentSpeed = 0;
+    private List<Book> books = new ArrayList<>();
+
+    public Integer getLibraryIndex() {
+        return libraryIndex;
+    }
+
+    public void setLibraryIndex(Integer libraryIndex) {
+        this.libraryIndex = libraryIndex;
+    }
 
     public Integer getShipmentSpeed() {
         return shipmentSpeed;
@@ -43,7 +53,8 @@ public class Library {
     @Override
     public String toString() {
         return "Library{" +
-                "numberOfBooks=" + numberOfBooks +
+                "libraryIndex=" + libraryIndex +
+                ", numberOfBooks=" + numberOfBooks +
                 ", signupProcessTime=" + signupProcessTime +
                 ", shipmentSpeed=" + shipmentSpeed +
                 ", books=" + books +

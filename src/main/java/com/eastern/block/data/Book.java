@@ -1,8 +1,8 @@
 package com.eastern.block.data;
 
 public class Book {
-    public final Integer index;
-    public final Integer score;
+    public Integer index = 0;
+    public Integer score = 0;
 
     public Book(Integer index, Integer score) {
         this.index = index;
