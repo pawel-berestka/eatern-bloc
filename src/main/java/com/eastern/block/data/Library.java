@@ -2,6 +2,7 @@ package com.eastern.block.data;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Library {
     private Integer libraryIndex = 0;
@@ -48,6 +49,23 @@ public class Library {
 
     public void setBooks(List<Book> books) {
         this.books = books;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Library library = (Library) o;
+        return libraryIndex.equals(library.libraryIndex) &&
+                numberOfBooks.equals(library.numberOfBooks) &&
+                signupProcessTime.equals(library.signupProcessTime) &&
+                shipmentSpeed.equals(library.shipmentSpeed) &&
+                books.equals(library.books);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(libraryIndex, numberOfBooks, signupProcessTime, shipmentSpeed, books);
     }
 
     @Override

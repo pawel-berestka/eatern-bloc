@@ -14,7 +14,7 @@ public class Main {
 //    private static final String DEFAULT_INPUT_FILE_PATH = "C:\\dev\\src\\asd\\pizza-algorithm\\src\\main\\resources\\c_medium.in";
 //    private static final String DEFAULT_INPUT_FILE_PATH = "C:\\dev\\src\\asd\\pizza-algorithm\\src\\main\\resources\\d_quite_big.in";
 //    private static final String DEFAULT_INPUT_FILE_PATH = "C:\\dev\\src\\asd\\pizza-algorithm\\src\\main\\resources\\e_also_big.in";
-    private static final String DEFAULT_INPUT_FILE_PATH = "C:\\dev\\hashcode\\eatern-bloc\\src\\main\\resources\\example.in";
+    private static final String DEFAULT_INPUT_FILE_PATH = "C:\\dev\\hashcode\\eatern-bloc\\src\\main\\resources\\c_incunabula.txt";
     private static final String DEFAULT_OUTPUT_FILE_PATH = "C:\\dev\\hashcode\\eatern-bloc\\src\\main\\resources\\result.out";
 
     private static final InputDataReader inputDataReader = new InputDataReader();
