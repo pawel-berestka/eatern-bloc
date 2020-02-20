@@ -25,14 +25,18 @@ public class Algorithm {
 
         int daysLeft = daysLeftOnStart;
         for (Library library : libraryList) {
+            if (daysLeft == 0) {
+                break;
+            }
+
             Integer libraryScore = libraryScoringGetter.getScore(library, daysLeft, scanned);
 
-            daysLeft--;
+            daysLeft -= library.getShipmentSpeed();
         }
 
     }
 
-    private Library getLibraryToScanning(List<Library> ){
+    private Library getLibraryToScanning(List<Library> libraries) {
         return
     }
 }

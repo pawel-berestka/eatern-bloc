@@ -11,6 +11,15 @@ public class Library {
     private Integer libraryScore = 0;
     private Boolean isScaned = false;
 
+
+    public Boolean getScaned() {
+        return isScaned;
+    }
+
+    public void setScaned(Boolean scaned) {
+        isScaned = scaned;
+    }
+
     public Integer getLibraryScore() {
         return libraryScore;
     }
