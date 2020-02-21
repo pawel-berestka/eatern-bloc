@@ -1,9 +1,6 @@
 package com.eastern.block;
 
-import com.eastern.block.algorithm.Algorithm;
-import com.eastern.block.algorithm.BestLibraryGetter;
-import com.eastern.block.algorithm.LibraryBooksGetter;
-import com.eastern.block.algorithm.NumberOfBooksGetter;
+import com.eastern.block.algorithm.*;
 import com.eastern.block.data.InputData;
 import com.eastern.block.data.Library;
 import com.eastern.block.data.OutputData;
@@ -23,8 +20,9 @@ import static java.util.stream.Collectors.toList;
 
 public class Main {
     private static final LibraryBooksGetter libraryBooksGetter = new LibraryBooksGetter();
-    private static final BestLibraryGetter bestLibraryGetter = new BestLibraryGetter();
     private static final NumberOfBooksGetter numberOfBooksGetter = new NumberOfBooksGetter();
+    private static final LibraryScoreGetter libraryScoreGetter = new LibraryScoreGetter(libraryBooksGetter, numberOfBooksGetter);
+    private static final BestLibraryGetter bestLibraryGetter = new BestLibraryGetter(libraryScoreGetter);
     private static final Algorithm algorithm = new Algorithm(bestLibraryGetter, libraryBooksGetter, numberOfBooksGetter);
 
     private static final String DEFAULT_INPUT_FILE_PATH = "C:\\dev\\hashcode\\eatern-bloc\\src\\main\\resources\\example.in";
@@ -66,7 +64,7 @@ public class Main {
 
     public static void main(String[] args) throws FileNotFoundException {
         if (mode == MODE.SINGLE_FILE) {
-            processFile(DEFAULT_INPUT_FILE_PATH, DEFAULT_OUTPUT_FILE_PATH);
+            processFile(DEFAULT_INPUT_FILE_PATH_D, DEFAULT_OUTPUT_FILE_PATH);
         } else if (mode == MODE.ALL_FILES) {
             int sum = 0;
             for (int i = 0; i < allInputs.size(); ++i) {
@@ -80,12 +78,12 @@ public class Main {
         Instant startTime = Instant.now();
 
         InputData inputData = inputDataReader.readData(inputFilePath);
-        System.out.println(inputData);
+//        System.out.println(inputData);
 
         OutputData outputData = algorithm.calculate(inputData);
         outputDataWriter.writeData(outputFilePath, outputData);
 
-        System.out.println(outputData);
+//        System.out.println(outputData);
         Integer totalScore = getTotalScore(outputData, inputData);
         System.out.println("Score from file is " + totalScore);
 

@@ -24,8 +24,9 @@ public class Algorithm {
 
         List<LibraryAndItsBooks> result = new ArrayList<>();
         while (!libraries.isEmpty()) {
-            Library bestLibrary = bestLibraryGetter.getLibrary(libraries);
-            if (timeLeft > bestLibrary.getSignupProcessTime()) {
+            Optional<Library> bestLibraryOptional = bestLibraryGetter.getLibrary(libraries, chosenBooks, timeLeft);
+            if (bestLibraryOptional.isPresent()) {
+                Library bestLibrary = bestLibraryOptional.get();
                 List<Book> booksFromBestLibrary = libraryBooksGetter.getBooksToTake(bestLibrary.getBooks(), chosenBooks, numberOfBooksGetter.getNumberOfBooksToTake(timeLeft, bestLibrary.getSignupProcessTime(), bestLibrary.getShipmentSpeed()));
                 if (!booksFromBestLibrary.isEmpty()) {
                     LibraryAndItsBooks transformedBestLibrary = new LibraryAndItsBooks();
@@ -36,15 +37,15 @@ public class Algorithm {
                     chosenBooks.addAll(booksFromBestLibrary);
                     timeLeft -= bestLibrary.getSignupProcessTime();
                 }
+
+                libraries.remove(bestLibrary);
             }
-
-//            for(int i=0; i<libraries.size(); ++i){
-//                if(timeLeft < libraries.get(i).getSi;)
-//            }
-
-            libraries.remove(bestLibrary);
         }
 
+        return getOutputDataFromResult(result);
+    }
+
+    private OutputData getOutputDataFromResult(List<LibraryAndItsBooks> result) {
         OutputData outputData = new OutputData();
         outputData.setNumberOfLibraries(result.size());
 

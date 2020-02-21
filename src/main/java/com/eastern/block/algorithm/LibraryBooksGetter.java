@@ -7,10 +7,10 @@ import java.util.List;
 import java.util.Set;
 
 public class LibraryBooksGetter {
-    public List<Book> getBooksToTake(List<Book> libraryBooks, Set<Book> chosenBooks, Integer numberOfBooks) {
+    public List<Book> getBooksToTake(List<Book> libraryBooks, Set<Book> chosenBooks, Integer numberOfBooksToTake) {
         List<Book> booksToTake = new ArrayList<>();
         for (int i = libraryBooks.size() - 1; i >= 0; --i) {
-            if (booksToTake.size() == numberOfBooks) {
+            if (booksToTake.size() == numberOfBooksToTake) {
                 return booksToTake;
             }
 

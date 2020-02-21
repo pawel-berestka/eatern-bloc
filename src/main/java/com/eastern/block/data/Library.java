@@ -9,8 +9,12 @@ public class Library {
     private Integer numberOfBooks = 0;
     private Integer signupProcessTime = 0;
     private Integer shipmentSpeed = 0;
-    private Long libraryScore = 0L;
+    private Integer libraryScore = 0;
     private Boolean isScaned = false;
+
+    public List<Book> getBooks() {
+        return books;
+    }
 
     public Boolean getScaned() {
         return isScaned;
@@ -20,11 +24,11 @@ public class Library {
         isScaned = scaned;
     }
 
-    public Long getLibraryScore() {
+    public Integer getLibraryScore() {
         return libraryScore;
     }
 
-    public void setLibraryScore(Long libraryScore) {
+    public void setLibraryScore(Integer libraryScore) {
         this.libraryScore = libraryScore;
     }
 
@@ -62,10 +66,6 @@ public class Library {
         this.signupProcessTime = signupProcessTime;
     }
 
-    public List<Book> getBooks() {
-        return books;
-    }
-
     public void setBooks(List<Book> books) {
         this.books = books;
     }
@@ -94,6 +94,8 @@ public class Library {
                 ", numberOfBooks=" + numberOfBooks +
                 ", signupProcessTime=" + signupProcessTime +
                 ", shipmentSpeed=" + shipmentSpeed +
+                ", libraryScore=" + libraryScore +
+                ", isScaned=" + isScaned +
                 ", books=" + books +
                 '}';
     }
